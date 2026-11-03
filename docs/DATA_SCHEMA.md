@@ -1,7 +1,10 @@
-# Data schema
+# Phase 1 CLI JSON data schema
 
-The JSON persistence format is versioned so the CLI can evolve into the later
-pandas and Django phases without redefining its core data contract.
+This document defines the versioned JSON persistence format used by the
+original Python CLI on `main`. It records the data contract that informed the
+project's later development; it is not the database schema or API contract for
+the current Django application. See the `django-backend` branch for the
+implemented relational models and API serializers.
 
 ## Version 2 expense document
 
