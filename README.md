@@ -1,244 +1,192 @@
-# **Welcome to my multi-tier Expense Tracker repository!**
+# TallyDan — Full-Stack Expense Tracker
 
-This project showcases my journey from building low-level system tools to engineering production-ready, decoupled full-stack cloud applications.
+TallyDan is a full-stack expense tracking and personal financial management application. It evolved from a local Python command-line project into a deployed web application.
 
-## **Project 1: 💸 TallyDan — Full-Stack Expense Tracker**
+The project is maintained across three branches in this repository:
 
-> A robust, production-ready full-stack expense tracking and financial management web application built for seamless budgeting, data persistence, and secure user authentication.
+- **`main`** — original Python CLI application.
+- **`django-backend`** — Django REST Framework API.
+- **`frontend`** — React frontend and full-stack application documentation.
 
-[![Live Demo](https://img.shields.io/badge/demo-live-brightgreen)](https://tallydan-expense-tracker.vercel.app)
-[![Backend Status](<https://img.shields.io/badge/backend-django%20rest-blue>)](https://expense-tracker-api-n5s7.onrender.com)
-[![Frontend Status](<https://img.shields.io/badge/frontend-vite%20%2B%20react-orange>)](https://vercel.com)
+## Live application
+
+- **Web application:** https://tallydan-expense-tracker.vercel.app
+- **Backend API:** https://expense-tracker-api-n5s7.onrender.com
+- **Repository:** https://github.com/danielabdouroihamane9-gif/TallyDan
+
+The frontend is deployed on Vercel and the backend is hosted on Render. The backend API is versioned under `/api/v1/`.
 
 ---
 
-## 🚀 Live Demo
+## Application preview
 
-* **Frontend Application:** [https://tallydan-expense-tracker.vercel.app](https://tallydan-expense-tracker.vercel.app)
-* **Backend API Documentation / Health:** [https://expense-tracker-api-n5s7.onrender.com](https://expense-tracker-api-n5s7.onrender.com)
+The screenshots below show the actual application interface.
 
----
+![TallyDan sign-in screen](image/README/1793297744416.png)
 
-## 📸 Application Preview
+![TallyDan dashboard](image/README/1793297782948.png)
 
-![Login Screen](image/README/1793297744416.png)
+![TallyDan registration screen](image/README/1793297798554.png)
 
-![Dashboard](image/README/1793297782948.png)
+![TallyDan expenses page](image/README/1793297807413.png)
 
-![Create account](image/README/1793297798554.png)
+> If an image does not render on GitHub, confirm that the corresponding image file has been committed and pushed to this branch at the exact path shown in the Markdown reference.
 
-![Expenses Page](image/README/1793297807413.png)
+## Features
 
-## 🏛️ System Architecture
+- User registration and sign-in.
+- JWT-based access and refresh token authentication.
+- Dashboard with monthly spending summaries and financial statistics.
+- Expense creation, viewing, editing, deletion, filtering, and pagination.
+- Category budgets and budget-versus-spending summaries.
+- CSV import and export.
+- Account profile and currency settings.
+- Responsive interface for desktop and smaller screens.
 
-TallyDan follows a **decoupled client-server architecture**:
+## System architecture
 
-* **Frontend:** A single-page application (SPA) built with **React and Vite**, styled for responsive mobile and desktop use, deployed globally via **Vercel**.
-* **Backend:** A RESTful API built with **Django REST Framework (DRF)** handling business logic, user sessions, and database operations, hosted on **Render**.
-* **Database & Security:** Relational data management secured with environment-driven CORS policies and token-based authentication.
+TallyDan uses a decoupled client-server architecture:
 
 ```text
-+-------------+      HTTPS / REST API       +------------------------+
-|   React     |  -------------------------> |      Django DRF        |
-|  (Vite SPA) | <-------------------------  |     (Render Server)    |
-|   Vercel    |      JSON Payloads          +------------------------+
-+-------------+                                          |
-+------------------------+
-| Relational DB / SQLite |
-+------------------------+
+       User
+        |
+        v
++-------------------------+
+| React + TypeScript      |
+| Vite frontend           |
+| Deployed on Vercel      |
++-------------------------+
+        |
+        | HTTPS / REST / JSON
+        | JWT bearer token
+        v
++-------------------------+
+| Django REST Framework   |
+| API hosted on Render    |
++-------------------------+
+        |
+        v
++-------------------------+
+| PostgreSQL              |
+| Production database     |
++-------------------------+
 ```
 
-## 🧰 Tech Stack
+The frontend handles the user interface and API consumption. The backend is responsible for authentication, authorization, validation, application logic, and persistence.
 
-### **Frontend**
+## Technology stack
 
-* **React / Vite** – Fast component-based UI development and lightning-fast bundling.
-* **Tailwind CSS / Modern CSS** – Clean, modern, and responsive interface design.
-* **Vercel CLI** – Serverless frontend deployment pipeline.
+### Frontend
 
-### **Backend**
+- React 19
+- TypeScript
+- Vite
+- Tailwind CSS 4 and application CSS
+- Axios
+- TanStack Query
+- React Router
+- React Hook Form and Zod
+- Recharts
+- Radix UI and Lucide React
 
-* **Python / Django** – Secure and scalable high-level Python web framework.
-* **Django REST Framework (DRF)** – Powerful toolkit for building robust Web APIs.
-* **Django CORS Headers** – Secure cross-origin resource sharing configuration between Vercel and Render.
-* **Render** – Cloud platform for scalable web services and backend hosting.
+### Backend
 
----
+- Python 3.13
+- Django 5.2
+- Django REST Framework
+- SimpleJWT
+- PostgreSQL in the deployed configuration; SQLite is available as the local default
+- django-filter
+- django-cors-headers
+- Gunicorn and WhiteNoise
+- Docker / Docker Compose
 
-## ✨ Core Features
+## API overview
 
-* **User Authentication:** Secure user registration, login, and session persistence.
-* **Expense Management:** Add, categorize, edit, and delete daily personal expenses.
-* **Financial Insights:** Track spending metrics and budgets dynamically.
-* **Responsive Design:** Optimized for seamless usage across mobile, tablet, and desktop viewports.
+The API base path is `/api/v1/`.
 
----
+| Method | Endpoint | Purpose |
+|---|---|---|
+| POST | `/api/v1/auth/register/` | Register a user |
+| POST | `/api/v1/auth/token/` | Obtain JWT access and refresh tokens |
+| POST | `/api/v1/auth/token/refresh/` | Refresh an access token |
+| GET | `/api/v1/auth/me/` | Retrieve the authenticated user's profile |
+| GET / POST | `/api/v1/expenses/` | List or create the authenticated user's expenses |
+| GET / PUT / PATCH / DELETE | `/api/v1/expenses/{uuid}/` | Retrieve, update, or delete an expense |
+| GET | `/api/v1/expenses/summary/` | Retrieve monthly spending and budget summary |
+| GET | `/api/v1/expenses/statistics/` | Retrieve expense statistics |
+| GET / POST | `/api/v1/budgets/` | List or create category budgets |
 
-## 🛠️ Local Development Setup
+See the [Django backend README](https://github.com/danielabdouroihamane9-gif/TallyDan/blob/django-backend/README.md) for the full endpoint reference, data model, setup, and backend tests.
 
-To run TallyDan locally on your machine:
+## Local development
 
-### 1. Clone the Repository
+This repository uses separate branches for the CLI, backend, and frontend. The frontend branch contains the full-stack source tree.
+
+### Frontend
+
+1. Clone this branch:
 
 ```bash
-git clone [https://github.com/your-username/expense_tracker.git](https://github.com/your-username/expense_tracker.git)
-cd expense_tracker
+git clone --branch frontend https://github.com/danielabdouroihamane9-gif/TallyDan.git
+cd TallyDan/frontend
 ```
 
-#### 2. Set Up the Backend
+2. Install dependencies:
 
-```Shell
-cd backend
-python -m venv .venv
-# Activate virtual environment (Windows PowerShell)
-.\.venv\Scripts\Activate.ps1
-pip install -r requirements.txt
-python manage.py migrate
-python manage.py runserver
+```bash
+npm ci
 ```
 
-#### 3. Set Up the Frontend
+3. Copy `.env.example` to `.env.local`. For local development, leave `VITE_API_BASE_URL` empty to use the Vite proxy.
 
-   Open a separate terminal window:
+4. Start the frontend:
 
-```Shell
-cd frontend
-npm install
+```bash
 npm run dev
 ```
 
-## **Project 2: Expense Tracker CLI**
+### Backend
 
-A local command-line expense tracker built with Python. The project is the
-stabilized foundation of Roadmap Phase 1: business rules are separated from
-terminal presentation and JSON persistence so later Django work can reuse the
-domain behavior instead of rewriting it.
+Start the Django API separately. Follow the [backend branch setup instructions](https://github.com/danielabdouroihamane9-gif/TallyDan/blob/django-backend/README.md). The default local API origin is `http://127.0.0.1:8000`.
 
-## Current capabilities
+## Testing
 
-* Add, edit, duplicate, inspect, search, filter, sort, and delete expenses.
-* Set category budgets and view monthly budget status.
-* Generate monthly, statistical, category, and top-category reports.
-* Import and export currency-aware CSV data.
-* Configure one application currency; the initial default is `USD`.
-* Store exact two-decimal monetary values, stable expense UUIDs, occurrence
-  dates, and UTC creation timestamps in versioned JSON documents.
-* Protect local data with validation, atomic replacement, backups, and recovery.
-* Run through explicit application composition and repository contracts.
+Frontend checks, run from `frontend/`:
 
-## Requirements
-
-* Python 3.11, 3.12, 3.13, or 3.14
-* A terminal such as PowerShell
-
-The Phase 1 CLI uses only the Python standard library at runtime. Test,
-coverage, and formatting tools are installed separately from
-`requirements-dev.txt`.
-
-## Quick start
-
-```powershell
-git clone <repository-url>
-cd expense_tracker
-python -m venv .venv
-.\.venv\Scripts\Activate.ps1
-python -m pip install -r requirements.txt
-python -m src.main
+```bash
+npm run lint
+npm test
+npm run build
 ```
 
-The default data and export directories are `data/` and `exports/`. Runtime
-JSON, backup, CSV, environment, coverage, and cache files are ignored by Git.
+The Django backend has its own automated test suite and CI workflow. See the backend README for commands and coverage scope. Frontend unit tests and backend tests should not be represented as a complete end-to-end test of the deployed application.
 
-For an isolated manual run:
+## Deployment and CORS
 
-```powershell
-$env:EXPENSE_TRACKER_DATA_DIR = "tmp/manual-data"
-$env:EXPENSE_TRACKER_EXPORT_DIR = "tmp/manual-exports"
-$env:EXPENSE_TRACKER_DEFAULT_CURRENCY = "KMF"
-python -m src.main
-```
+- **Frontend hosting:** Vercel
+- **Backend hosting:** Render
+- **Production database:** PostgreSQL, configured through the backend environment.
 
-The default currency is used only when settings do not yet exist. After the
-first run, the persisted setting is authoritative. Currency can be changed in
-the CLI only while no expenses or budgets exist.
+The Django settings in this branch include `django-cors-headers`, `CorsMiddleware`, and the `CORS_ALLOWED_ORIGINS` environment setting. For production, the Render service must have `CORS_ALLOWED_ORIGINS` set to the exact deployed frontend origin, for example `https://tallydan-expense-tracker.vercel.app`. Do not use unrestricted CORS.
 
-See [QUICK_START.md](QUICK_START.md) for the complete setup and verification
-workflow.
+A local Vite proxy working correctly does not by itself prove that production CORS is configured. Verify the deployed frontend's preflight and authenticated API requests after backend deployment or environment changes.
 
-## Main menu
+## Project evolution
 
-```text
-1. Expense Management
-2. Budget Management
-3. Reports
-4. Export
-5. Settings (Currency: USD)
-0. Exit
-```
+TallyDan grew through three practical stages:
 
-The Export section contains both expense import and export workflows. The
-detailed menu map is maintained in [PROJECT_INDEX.md](PROJECT_INDEX.md).
+1. **Python CLI:** local expense and budget workflows, JSON persistence, validation, and reporting.
+2. **Django REST API:** relational data persistence, JWT authentication, user-scoped expense and budget resources, and financial summaries.
+3. **Full-stack application:** a React frontend integrated with the Django API and deployed through Vercel and Render.
 
-## Development checks
+Explore the other stages:
 
-Install the development dependencies, then run the same gates used by CI:
+- [Original Python CLI — `main`](https://github.com/danielabdouroihamane9-gif/TallyDan/tree/main)
+- [Django REST API — `django-backend`](https://github.com/danielabdouroihamane9-gif/TallyDan/tree/django-backend)
+- [Frontend source — `frontend`](https://github.com/danielabdouroihamane9-gif/TallyDan/tree/frontend)
 
-```powershell
-python -m pip install -r requirements-dev.txt
-python -m pip check
-python -m ruff check .
-python -m ruff format --check .
-python -m compileall -q src tests
-python -m pytest --cov=src --cov-report=term-missing --cov-fail-under=85 -q
-```
-
-GitHub Actions runs static checks on Python 3.14 and the test suite on every
-supported Python version. Details are in
-[docs/QUALITY_AUTOMATION.md](docs/QUALITY_AUTOMATION.md).
-
-## Architecture
-
-The dependency direction is:
-
-```text
-CLI -> application services -> repository protocols <- JSON storage
-                    |
-                    v
-             domain validation
-```
-
-`src/application.py` is the composition root. Services do not construct JSON
-storage, and `src/main.py` remains a thin executable entry point. See
-[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) and
-[STRUCTURE.md](STRUCTURE.md).
-
-## Data safety
-
-Version 2 JSON uses decimal strings rather than binary floats. Existing valid
-documents are backed up before replacement, and corrupt primary documents are
-restored only from backups that pass the same validation. Never edit or delete
-the primary and `.bak` files without first making an external copy.
-
-See [docs/DATA_SCHEMA.md](docs/DATA_SCHEMA.md) and
-[docs/PERSISTENCE_RELIABILITY.md](docs/PERSISTENCE_RELIABILITY.md).
-
-## Roadmap status
-
-Roadmap Phase 1 is complete and published as `v1.0.0`. All seven stabilization
-milestones passed their release gates. No HTTP API, Django application,
-database, authentication, multi-user system, or AI/ML feature is implemented
-in this release.
-
-The authoritative status is
-[docs/PHASE_1_UPGRADE_ROADMAP.md](docs/PHASE_1_UPGRADE_ROADMAP.md). The future
-Django mapping is design guidance, not implemented code:
-[docs/DJANGO_MIGRATION_READINESS.md](docs/DJANGO_MIGRATION_READINESS.md).
-
-## Documentation
-
-Use [DOCUMENTATION_INDEX.md](DOCUMENTATION_INDEX.md) as the canonical document
-map. Historical completion reports that contradicted the current roadmap were
-removed; Git history remains the source for those past snapshots.
+This project demonstrates practical work in Python development, backend engineering, REST API design, relational data modeling, authentication, frontend integration, and application deployment. These software engineering foundations also support future work on data-driven and AI-enabled applications.
 
 ## License
 
