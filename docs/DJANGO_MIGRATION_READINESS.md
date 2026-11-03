@@ -1,12 +1,22 @@
-# Django migration readiness
+# Django migration readiness — Phase 1 handoff record
 
-This is a future handoff design for the selected web framework. It does not add
-Django, database models, migrations, views, APIs, authentication, or
-PostgreSQL to Roadmap Phase 1.
+This document was written during the original Python CLI phase as a design
+handoff for the planned Django implementation. That implementation has since
+progressed in the separate
+[`django-backend`](https://github.com/danielabdouroihamane9-gif/TallyDan/tree/django-backend)
+branch, with the React client maintained in
+[`frontend`](https://github.com/danielabdouroihamane9-gif/TallyDan/tree/frontend).
 
-The field names below are proposals that preserve current semantics. Before
-implementation, select the supported Django version and database, then verify
-the design against that version's official documentation.
+The material below remains a record of the original data-mapping proposals,
+risks, and migration safeguards. It is not a claim that Django is still
+unimplemented across the repository, nor is it a complete specification of the
+current backend. Where the implemented backend differs from this original
+proposal, the checked-in backend models, serializers, API tests, and current
+API contract take precedence for present behavior.
+
+The field names below were proposals intended to preserve the CLI's data
+semantics. They should be treated as historical design guidance, not assumed
+to match every field in the deployed application.
 
 ## Current-to-Django data map
 
@@ -58,11 +68,13 @@ but that ownership decision depends on the later authentication and tenancy
 design. Until that decision is made, do not create a global singleton model and
 assume it will scale.
 
-## Repository transition
+## Repository transition — original design considerations
 
-The current contracts load or save an entire collection. They are useful for
-proving that services do not know about JSON and may be implemented by a first
-Django adapter during a controlled migration.
+The Phase 1 CLI contracts load or save an entire collection. They demonstrated
+that services did not need to know about JSON, but they were not adopted as a
+complete database interface for the current multi-user web application. The
+Django backend is implemented separately; inspect its ORM models, serializers,
+views, and API tests for the actual persistence and request boundaries.
 
 That compatibility adapter has limits:
 
@@ -155,4 +167,7 @@ transactions short:
 - granular repository/use-case interface
 - migration downtime, retention, and rollback policy
 
-Leaving these items explicit is safer than encoding guesses in Phase 1.
+These decisions were intentionally left open in the Phase 1 design. Some
+were resolved during backend implementation; others may still require product
+or architecture decisions. Consult the current backend source and API contract
+before treating any item above as an unresolved current requirement.
