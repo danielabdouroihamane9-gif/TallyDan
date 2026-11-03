@@ -1,4 +1,8 @@
-# Repository structure
+# Phase 1 CLI repository structure
+
+This tree describes the Python CLI source preserved on `main`, not the entire
+TallyDan full-stack repository. The Django backend and React frontend live in
+the `django-backend` and `frontend` branches respectively.
 
 ```text
 expense_tracker/
@@ -97,11 +101,15 @@ Tests mirror the production boundaries:
 All test writes use temporary directories. See
 [docs/QUALITY_AUTOMATION.md](docs/QUALITY_AUTOMATION.md).
 
-## Intended evolution
+## Relationship to the later TallyDan implementation
 
-The current structure allows a later Django repository adapter to sit on the
-right side of the repository protocols. It does not imply that whole-collection
-load/save contracts are the final database interface. Before multi-user or
-high-volume operation, those contracts need deliberate granular and
-transactional evolution. See
-[docs/DJANGO_MIGRATION_READINESS.md](docs/DJANGO_MIGRATION_READINESS.md).
+The repository protocols and composition boundaries were designed to reduce
+coupling in the CLI and to inform later persistence work. The subsequent
+Django backend is a separately implemented application in the
+`django-backend` branch; do not assume it is simply a drop-in adapter for every
+CLI interface. The original design warning remains relevant: whole-collection
+load/save contracts are not suitable as the final interface for concurrent
+multi-user database operations. The later backend uses its own request,
+serializer, view, and ORM boundaries. See
+[docs/DJANGO_MIGRATION_READINESS.md](docs/DJANGO_MIGRATION_READINESS.md)
+and the [backend source](https://github.com/danielabdouroihamane9-gif/TallyDan/tree/django-backend).
