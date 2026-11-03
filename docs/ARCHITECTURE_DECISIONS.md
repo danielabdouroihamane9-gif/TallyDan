@@ -1,8 +1,9 @@
-# Architecture decisions
+# Phase 1 CLI architecture decisions
 
-These records explain Phase 1 decisions that later implementations must
-preserve or deliberately supersede. Status `Accepted` means implemented in the
-current CLI.
+These records explain design decisions made for the original Python CLI. They
+are historical architectural context for TallyDan, not a complete set of
+architecture decisions for the later Django backend and React frontend. Status
+`Accepted` means implemented in the Phase 1 CLI.
 
 ## ADR-001: Use Decimal for money
 
