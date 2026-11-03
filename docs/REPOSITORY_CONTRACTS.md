@@ -1,8 +1,10 @@
-# Repository and service boundaries
+# Phase 1 CLI repository and service boundaries
 
-Milestone 3 separates application behavior from JSON persistence and terminal
-presentation. Services now receive repository dependencies that satisfy typed
-`Protocol` contracts; they do not import or construct `JSONStorage`.
+Milestone 3 of the original CLI roadmap separated application behavior from
+JSON persistence and terminal presentation. Services receive repository
+dependencies that satisfy typed `Protocol` contracts; they do not import or
+construct `JSONStorage`. This document describes the CLI architecture, not the
+separate Django backend's ORM and API boundaries.
 
 ## Dependency direction
 
@@ -29,13 +31,15 @@ services, commands, and menu without changing service behavior.
 - `SettingsRepository`: `load_settings()` and `save_settings(settings)`.
 
 `JSONStorage` implements all three protocols structurally. Services depend only
-on the protocols and `RepositoryError`, so a future database implementation can
-be injected without changing business rules or the CLI.
+on the protocols and `RepositoryError`. This created a useful persistence
+abstraction in the CLI, but it should not be read as a claim that the current
+Django backend directly injects this same adapter or reuses every CLI service.
 
 The reusable assertions in `tests/repository_contracts.py` define the behavior
-every later repository must satisfy. `tests/test_json_repository_contract.py`
-applies those assertions to `JSONStorage`. A Django repository should run the
-same contract assertions in addition to its database-specific tests.
+expected from adapters to these CLI protocols. `tests/test_json_repository_contract.py`
+applies those assertions to `JSONStorage`. The current Django backend is a
+separate implementation; its own model, serializer, view, and API tests are
+the authority for its behavior.
 
 ## Service constructor contract
 
