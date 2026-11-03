@@ -1,4 +1,8 @@
-# Phase 1 v1.0.0 release verification report
+# Phase 1 CLI v1.0.0 release verification report
+
+> Historical release evidence for the original Python CLI on `main`, verified
+> on 2026-08-15. This report does not describe or limit the later TallyDan
+> Django backend and React frontend, which are maintained in separate branches.
 
 **Verification date:** 2026-08-15
 
