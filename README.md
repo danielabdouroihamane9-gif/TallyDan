@@ -21,9 +21,9 @@ The frontend is deployed on Vercel and the Django backend is hosted on Render. A
 
 | Stage | Branch | What it contains |
 |---|---|---|
-| Expense Tracker CLI | [`main`](https://github.com/danielabdouroihamane9-gif/Expense_Tracker-CLI/tree/main) | Original Python CLI, expense and budget workflows, reporting, CSV import/export, JSON persistence, validation, and automated quality checks. |
-| Django backend API | [`django-backend`](https://github.com/danielabdouroihamane9-gif/Expense_Tracker-CLI/tree/django-backend) | Django and Django REST Framework API, JWT authentication, protected expense operations, ownership permissions, and monthly summaries. |
-| TallyDan frontend / full-stack presentation | [`frontend`](https://github.com/danielabdouroihamane9-gif/Expense_Tracker-CLI/tree/frontend) | React and Vite frontend, API integration, application screenshots, architecture overview, and deployment information. |
+| Expense Tracker CLI | [`main`](https://github.com/danielabdouroihamane9-gif/TallyDan/tree/main) | Original Python CLI, expense and budget workflows, reporting, CSV import/export, JSON persistence, validation, and automated quality checks. |
+| Django backend API | [`django-backend`](https://github.com/danielabdouroihamane9-gif/TallyDan/tree/django-backend) | Django and Django REST Framework API, JWT authentication, protected expense operations, ownership permissions, and monthly summaries. |
+| TallyDan frontend / full-stack presentation | [`frontend`](https://github.com/danielabdouroihamane9-gif/TallyDan/tree/frontend) | React and Vite frontend, API integration, application screenshots, architecture overview, and deployment information. |
 
 **Note:** These are separate branches in one repository, not three folders on the default branch. Switch to the relevant branch to inspect its files. The `main` branch remains the CLI project's default branch.
 
@@ -119,21 +119,21 @@ The first version was a local command-line expense tracker written in Python. It
 - Validate data and use backup/recovery safeguards.
 - Separate application services, repository contracts, and terminal presentation.
 
-See the [CLI source on `main`](https://github.com/danielabdouroihamane9-gif/Expense_Tracker-CLI/tree/main) for its documentation, tests, and implementation.
+See the [CLI source on `main`](https://github.com/danielabdouroihamane9-gif/TallyDan/tree/main) for its documentation, tests, and implementation.
 
 ## Screenshots
 
 The full-stack branch contains the current application preview images and additional project documentation:
 
-[View TallyDan screenshots and documentation](https://github.com/danielabdouroihamane9-gif/Expense_Tracker-CLI/tree/frontend)
+[View TallyDan screenshots and documentation](https://github.com/danielabdouroihamane9-gif/TallyDan/tree/frontend)
 
 ## Running locally
 
 The CLI, backend, and frontend have different dependencies and setup procedures. Follow the instructions in the corresponding branch rather than assuming that the root of `main` contains the full-stack application.
 
-- [CLI setup and development checks](https://github.com/danielabdouroihamane9-gif/Expense_Tracker-CLI/tree/main)
-- [Backend implementation](https://github.com/danielabdouroihamane9-gif/Expense_Tracker-CLI/tree/django-backend)
-- [Frontend and full-stack setup](https://github.com/danielabdouroihamane9-gif/Expense_Tracker-CLI/tree/frontend)
+- [CLI setup and development checks](https://github.com/danielabdouroihamane9-gif/TallyDan/tree/main)
+- [Backend implementation](https://github.com/danielabdouroihamane9-gif/TallyDan/tree/django-backend)
+- [Frontend and full-stack setup](https://github.com/danielabdouroihamane9-gif/TallyDan/tree/frontend)
 
 For deployment, configure secrets and environment-specific settings in the hosting providers. Do not commit `.env` files, credentials, secret keys, or real user data.
 
@@ -151,9 +151,9 @@ The project is part of my broader development in software engineering, data scie
 
 ## Repository navigation
 
-- [CLI — `main`](https://github.com/danielabdouroihamane9-gif/Expense_Tracker-CLI/tree/main)
-- [Django backend — `django-backend`](https://github.com/danielabdouroihamane9-gif/Expense_Tracker-CLI/tree/django-backend)
-- [TallyDan frontend — `frontend`](https://github.com/danielabdouroihamane9-gif/Expense_Tracker-CLI/tree/frontend)
+- [CLI — `main`](https://github.com/danielabdouroihamane9-gif/TallyDan/tree/main)
+- [Django backend — `django-backend`](https://github.com/danielabdouroihamane9-gif/TallyDan/tree/django-backend)
+- [TallyDan frontend — `frontend`](https://github.com/danielabdouroihamane9-gif/TallyDan/tree/frontend)
 - [Live application](https://tallydan-expense-tracker.vercel.app)
 
 ---
