@@ -1,136 +1,159 @@
-# Expense Tracker CLI
+# TallyDan — Expense Tracking & Financial Management
 
-A local command-line expense tracker built with Python. The project is the
-stabilized foundation of Roadmap Phase 1: business rules are separated from
-terminal presentation and JSON persistence so later Django work can reuse the
-domain behavior instead of rewriting it.
+TallyDan is a full-stack expense-tracking application that evolved from a local Python command-line project into a deployed web application.
 
-## Current capabilities
+This repository documents the project's development across three stages:
 
-- Add, edit, duplicate, inspect, search, filter, sort, and delete expenses.
-- Set category budgets and view monthly budget status.
-- Generate monthly, statistical, category, and top-category reports.
-- Import and export currency-aware CSV data.
-- Configure one application currency; the initial default is `USD`.
-- Store exact two-decimal monetary values, stable expense UUIDs, occurrence
-  dates, and UTC creation timestamps in versioned JSON documents.
-- Protect local data with validation, atomic replacement, backups, and recovery.
-- Run through explicit application composition and repository contracts.
+1. **Expense Tracker CLI** — a local Python application for expense and budget management.
+2. **Django REST API** — a backend that provides authentication, protected expense operations, and financial summaries.
+3. **TallyDan Full Stack** — a React frontend integrated with the Django REST API and deployed as a web application.
 
-## Requirements
+The branches preserve these stages and their development histories. Start with the full-stack branch if you want to explore the deployed product.
 
-- Python 3.11, 3.12, 3.13, or 3.14
-- A terminal such as PowerShell
+## Live application
 
-The Phase 1 CLI uses only the Python standard library at runtime. Test,
-coverage, and formatting tools are installed separately from
-`requirements-dev.txt`.
+- **TallyDan web application:** https://tallydan-expense-tracker.vercel.app
+- **Backend service:** https://expense-tracker-api-n5s7.onrender.com
 
-## Quick start
+The frontend is deployed on Vercel and the Django backend is hosted on Render. Availability may depend on the hosting providers and deployment configuration.
 
-```powershell
-git clone <repository-url>
-cd expense_tracker
-python -m venv .venv
-.\.venv\Scripts\Activate.ps1
-python -m pip install -r requirements.txt
-python -m src.main
-```
+## Project evolution and source code
 
-The default data and export directories are `data/` and `exports/`. Runtime
-JSON, backup, CSV, environment, coverage, and cache files are ignored by Git.
+| Stage | Branch | What it contains |
+|---|---|---|
+| Expense Tracker CLI | [`main`](https://github.com/danielabdouroihamane9-gif/Expense_Tracker-CLI/tree/main) | Original Python CLI, expense and budget workflows, reporting, CSV import/export, JSON persistence, validation, and automated quality checks. |
+| Django backend API | [`django-backend`](https://github.com/danielabdouroihamane9-gif/Expense_Tracker-CLI/tree/django-backend) | Django and Django REST Framework API, JWT authentication, protected expense operations, ownership permissions, and monthly summaries. |
+| TallyDan frontend / full-stack presentation | [`frontend`](https://github.com/danielabdouroihamane9-gif/Expense_Tracker-CLI/tree/frontend) | React and Vite frontend, API integration, application screenshots, architecture overview, and deployment information. |
 
-For an isolated manual run:
+**Note:** These are separate branches in one repository, not three folders on the default branch. Switch to the relevant branch to inspect its files. The `main` branch remains the CLI project's default branch.
 
-```powershell
-$env:EXPENSE_TRACKER_DATA_DIR = "tmp/manual-data"
-$env:EXPENSE_TRACKER_EXPORT_DIR = "tmp/manual-exports"
-$env:EXPENSE_TRACKER_DEFAULT_CURRENCY = "KMF"
-python -m src.main
-```
+## TallyDan — full-stack application
 
-The default currency is used only when settings do not yet exist. After the
-first run, the persisted setting is authoritative. Currency can be changed in
-the CLI only while no expenses or budgets exist.
+TallyDan brings together a browser-based frontend and a Django REST backend to provide expense-management functionality.
 
-See [QUICK_START.md](QUICK_START.md) for the complete setup and verification
-workflow.
+### Frontend
 
-## Main menu
+- React
+- Vite
+- Responsive web interface
+- Frontend deployment on Vercel
 
-```text
-1. Expense Management
-2. Budget Management
-3. Reports
-4. Export
-5. Settings (Currency: USD)
-0. Exit
-```
+### Backend
 
-The Export section contains both expense import and export workflows. The
-detailed menu map is maintained in [PROJECT_INDEX.md](PROJECT_INDEX.md).
+- Python 3.13
+- Django 5.2
+- Django REST Framework (DRF)
+- SimpleJWT for access and refresh token authentication
+- PostgreSQL for production database configuration
+- SQLite for local development
+- `python-decouple` for environment-based configuration
 
-## Development checks
+### Application capabilities
 
-Install the development dependencies, then run the same gates used by CI:
-
-```powershell
-python -m pip install -r requirements-dev.txt
-python -m pip check
-python -m ruff check .
-python -m ruff format --check .
-python -m compileall -q src tests
-python -m pytest --cov=src --cov-report=term-missing --cov-fail-under=85 -q
-```
-
-GitHub Actions runs static checks on Python 3.14 and the test suite on every
-supported Python version. Details are in
-[docs/QUALITY_AUTOMATION.md](docs/QUALITY_AUTOMATION.md).
+- User registration and authentication
+- JWT access and refresh token workflow
+- Expense creation, retrieval, updating, and deletion
+- Authenticated, user-specific expense access
+- Ownership-based permission checks for protected expense operations
+- Monthly expense summaries grouped by category
+- Frontend-to-backend communication through REST API requests
 
 ## Architecture
 
-The dependency direction is:
+The full-stack application follows a decoupled client-server architecture:
 
 ```text
-CLI -> application services -> repository protocols <- JSON storage
-                    |
-                    v
-             domain validation
+       User
+        |
+        v
++---------------------+
+| React + Vite        |
+| Frontend            |
+| Deployed on Vercel  |
++---------------------+
+        |
+        | HTTPS / REST API
+        | JSON + JWT
+        v
++---------------------+
+| Django REST         |
+| Framework API       |
+| Hosted on Render    |
++---------------------+
+        |
+        v
++---------------------+
+| PostgreSQL          |
+| Production database |
++---------------------+
 ```
 
-`src/application.py` is the composition root. Services do not construct JSON
-storage, and `src/main.py` remains a thin executable entry point. See
-[docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) and
-[STRUCTURE.md](STRUCTURE.md).
+The frontend is responsible for the user interface and consuming the API. The backend handles authentication, authorization, application logic, and database operations.
 
-## Data safety
+## Backend API overview
 
-Version 2 JSON uses decimal strings rather than binary floats. Existing valid
-documents are backed up before replacement, and corrupt primary documents are
-restored only from backups that pass the same validation. Never edit or delete
-the primary and `.bak` files without first making an external copy.
+The backend includes endpoints for:
 
-See [docs/DATA_SCHEMA.md](docs/DATA_SCHEMA.md) and
-[docs/PERSISTENCE_RELIABILITY.md](docs/PERSISTENCE_RELIABILITY.md).
+| Method | Endpoint | Purpose |
+|---|---|---|
+| POST | `/api/auth/register/` | Register a user |
+| POST | `/api/auth/login/` | Authenticate and obtain JWT tokens |
+| POST | `/api/auth/token/refresh/` | Refresh an access token |
+| GET | `/api/expenses/` | Retrieve the authenticated user's expenses |
+| POST | `/api/expenses/` | Create an expense for the authenticated user |
+| PUT | `/api/expenses/{id}/` | Update an authorized expense |
+| DELETE | `/api/expenses/{id}/` | Delete an authorized expense |
+| GET | `/api/expenses/summary/` | Retrieve monthly category totals |
 
-## Roadmap status
+The API was manually exercised with Postman during development. Refer to the backend branch for its implementation details.
 
-Roadmap Phase 1 is complete and published as `v1.0.0`. All seven stabilization
-milestones passed their release gates. No HTTP API, Django application,
-database, authentication, multi-user system, or AI/ML feature is implemented
-in this release.
+## Original CLI application
 
-The authoritative status is
-[docs/PHASE_1_UPGRADE_ROADMAP.md](docs/PHASE_1_UPGRADE_ROADMAP.md). The future
-Django mapping is design guidance, not implemented code:
-[docs/DJANGO_MIGRATION_READINESS.md](docs/DJANGO_MIGRATION_READINESS.md).
+The first version was a local command-line expense tracker written in Python. Its capabilities include:
 
-## Documentation
+- Add, edit, duplicate, search, filter, sort, inspect, and delete expenses.
+- Set category budgets and review monthly budget status.
+- Generate monthly, statistical, category, and top-category reports.
+- Import and export currency-aware CSV data.
+- Persist data in versioned JSON documents.
+- Validate data and use backup/recovery safeguards.
+- Separate application services, repository contracts, and terminal presentation.
 
-Use [DOCUMENTATION_INDEX.md](DOCUMENTATION_INDEX.md) as the canonical document
-map. Historical completion reports that contradicted the current roadmap were
-removed; Git history remains the source for those past snapshots.
+See the [CLI source on `main`](https://github.com/danielabdouroihamane9-gif/Expense_Tracker-CLI/tree/main) for its documentation, tests, and implementation.
 
-## License
+## Screenshots
 
-See [LICENSE](LICENSE).
+The full-stack branch contains the current application preview images and additional project documentation:
+
+[View TallyDan screenshots and documentation](https://github.com/danielabdouroihamane9-gif/Expense_Tracker-CLI/tree/frontend)
+
+## Running locally
+
+The CLI, backend, and frontend have different dependencies and setup procedures. Follow the instructions in the corresponding branch rather than assuming that the root of `main` contains the full-stack application.
+
+- [CLI setup and development checks](https://github.com/danielabdouroihamane9-gif/Expense_Tracker-CLI/tree/main)
+- [Backend implementation](https://github.com/danielabdouroihamane9-gif/Expense_Tracker-CLI/tree/django-backend)
+- [Frontend and full-stack setup](https://github.com/danielabdouroihamane9-gif/Expense_Tracker-CLI/tree/frontend)
+
+For deployment, configure secrets and environment-specific settings in the hosting providers. Do not commit `.env` files, credentials, secret keys, or real user data.
+
+## What this project represents
+
+TallyDan records a practical progression through software development:
+
+- Building application logic and persistence in Python.
+- Structuring a backend with Django and REST APIs.
+- Implementing authentication and user-level access control.
+- Connecting a frontend to a backend service.
+- Configuring and deploying a full-stack application.
+
+The project is part of my broader development in software engineering, data science, and AI/ML. It provides a software-engineering foundation for future data-driven and intelligent application work.
+
+## Repository navigation
+
+- [CLI — `main`](https://github.com/danielabdouroihamane9-gif/Expense_Tracker-CLI/tree/main)
+- [Django backend — `django-backend`](https://github.com/danielabdouroihamane9-gif/Expense_Tracker-CLI/tree/django-backend)
+- [TallyDan frontend — `frontend`](https://github.com/danielabdouroihamane9-gif/Expense_Tracker-CLI/tree/frontend)
+- [Live application](https://tallydan-expense-tracker.vercel.app)
+
+---
