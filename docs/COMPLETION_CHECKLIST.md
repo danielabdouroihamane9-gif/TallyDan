@@ -1,7 +1,8 @@
-# Phase 1 release completion checklist
+# Phase 1 CLI release completion checklist
 
-This checklist belongs to Milestone 7. Earlier documents that called the whole
-phase complete before the release gate were inaccurate.
+This checklist belongs to Milestone 7 of the original Python CLI roadmap. It
+records completion of that release only; it is not a completion checklist for
+the later Django backend or React frontend.
 
 The release gate was verified on 2026-08-15 and published as `v1.0.0` through
 the reviewed release workflow. Evidence is in
