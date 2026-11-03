@@ -1,8 +1,12 @@
 # Documentation index
 
-This is the canonical map of active project documentation. If two documents
-appear to conflict, the narrower technical contract governs behavior and the
-Phase 1 roadmap governs milestone status.
+This index maps the documentation for the original Phase 1 Python CLI. These
+files remain useful as historical implementation records and as the design
+background for TallyDan, but they do not describe the complete current
+full-stack application. The repository-level [README](README.md) is the entry
+point for the overall project and links to the current backend and frontend
+branches. If two Phase 1 documents conflict, the narrower technical contract
+governs CLI behavior and the Phase 1 roadmap governs that milestone's status.
 
 ## Start here
 
@@ -36,12 +40,17 @@ Phase 1 roadmap governs milestone status.
 | [docs/BUILD_SUMMARY.md](docs/BUILD_SUMMARY.md) | Concise current implementation summary |
 | [docs/PHASE_1_RELEASE_REPORT.md](docs/PHASE_1_RELEASE_REPORT.md) | Verified release-candidate evidence, limitations, and remaining publication work |
 
-## Future Django handoff
+## Django handoff and current full-stack implementation
 
-[docs/DJANGO_MIGRATION_READINESS.md](docs/DJANGO_MIGRATION_READINESS.md) maps
-the current data and boundaries to future Django models and provides a
-verification-first migration checklist. It is a design artifact only; Django
-is not installed or implemented in this phase.
+[docs/DJANGO_MIGRATION_READINESS.md](docs/DJANGO_MIGRATION_READINESS.md)
+records the design considerations prepared during the CLI phase. The planned
+Django direction has since progressed into a separate implementation branch:
+[`django-backend`](https://github.com/danielabdouroihamane9-gif/TallyDan/tree/django-backend).
+The React application and its integration documentation are maintained in
+[`frontend`](https://github.com/danielabdouroihamane9-gif/TallyDan/tree/frontend).
+The Phase 1 handoff document remains valuable for understanding the original
+data model and migration risks, but it is no longer a statement that Django
+work is still pending.
 
 ## Documentation maintenance rule
 
