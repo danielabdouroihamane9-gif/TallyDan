@@ -96,14 +96,14 @@ The backend includes endpoints for:
 
 | Method | Endpoint | Purpose |
 |---|---|---|
-| POST | `/api/auth/register/` | Register a user |
-| POST | `/api/auth/login/` | Authenticate and obtain JWT tokens |
-| POST | `/api/auth/token/refresh/` | Refresh an access token |
-| GET | `/api/expenses/` | Retrieve the authenticated user's expenses |
-| POST | `/api/expenses/` | Create an expense for the authenticated user |
-| PUT | `/api/expenses/{id}/` | Update an authorized expense |
-| DELETE | `/api/expenses/{id}/` | Delete an authorized expense |
-| GET | `/api/expenses/summary/` | Retrieve monthly category totals |
+| POST | `/api/v1/auth/register/` | Register a user |
+| POST | `/api/v1/auth/token/` | Authenticate and obtain JWT tokens |
+| POST | `/api/v1/auth/token/refresh/` | Refresh an access token |
+| GET | `/api/v1/expenses/` | Retrieve the authenticated user's expenses |
+| POST | `/api/v1/expenses/` | Create an expense for the authenticated user |
+| PUT | `/api/v1/expenses/{uuid}/` | Update an authorized expense |
+| DELETE | `/api/v1/expenses/{uuid}/` | Delete an authorized expense |
+| GET | `/api/v1/expenses/summary/` | Retrieve monthly category totals |
 
 The API was manually exercised with Postman during development. Refer to the backend branch for its implementation details.
 
