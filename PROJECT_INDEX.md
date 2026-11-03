@@ -1,8 +1,13 @@
 # Project index
 
-This index describes the application that exists on the current Phase 1
-branch. Future Django components are documented separately and are not part of
-the runtime.
+This index describes the original Python CLI application preserved on the
+`main` branch. It is intentionally scoped to the completed Phase 1 CLI and
+does not attempt to document the full-stack TallyDan runtime. The current
+Django backend and React frontend are maintained in the separate
+[`django-backend`](https://github.com/danielabdouroihamane9-gif/TallyDan/tree/django-backend)
+and
+[`frontend`](https://github.com/danielabdouroihamane9-gif/TallyDan/tree/frontend)
+branches.
 
 ## Runtime entry points
 
@@ -92,5 +97,8 @@ suite passes the quality gates in
 - Django handoff design:
   [docs/DJANGO_MIGRATION_READINESS.md](docs/DJANGO_MIGRATION_READINESS.md)
 
-This project has selected Django for the later web roadmap. It has not selected
-FastAPI, and neither framework is implemented during Phase 1 stabilization.
+The original roadmap selected Django as the web framework after CLI
+stabilization. That plan has since been implemented in the separate
+`django-backend` branch and connected to the React application in `frontend`.
+The Phase 1 CLI source on `main` remains a standalone historical milestone;
+its runtime does not import or depend on the web application.
