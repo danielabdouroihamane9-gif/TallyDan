@@ -1,7 +1,11 @@
-# Current architecture
+# Phase 1 CLI architecture
 
-This document describes the implemented Roadmap Phase 1 application. It does
-not describe a future web application as though it already exists.
+This document describes the original Python CLI implementation preserved on
+`main`. It does not describe the current full-stack TallyDan application. The
+Django backend and React frontend are maintained in the separate
+[`django-backend`](https://github.com/danielabdouroihamane9-gif/TallyDan/tree/django-backend)
+and [`frontend`](https://github.com/danielabdouroihamane9-gif/TallyDan/tree/frontend)
+branches. This file remains the architecture record for the CLI stage.
 
 ## Dependency direction
 
@@ -71,10 +75,10 @@ collections. `JSONStorage` satisfies them structurally. Reusable contract tests
 define the minimum behavior for another adapter.
 
 Whole-collection contracts are appropriate for this small single-process CLI,
-but they are not the final multi-user database design. A Django adapter may
-temporarily satisfy them during migration; granular queries, writes, and
-explicit transaction boundaries must replace them before concurrent or
-high-volume operation.
+but they are not the final multi-user database design. The later Django backend
+was implemented separately rather than being documented by this CLI runtime
+diagram. Consult the backend branch for its actual ORM, API, and transaction
+boundaries.
 
 ### JSON persistence
 
@@ -125,9 +129,11 @@ UUID creation are isolated behind protocols, allowing deterministic tests and
 repeatable legacy migrations. Details are in
 [APPLICATION_COMPOSITION.md](APPLICATION_COMPOSITION.md).
 
-## Current boundary
+## Phase 1 boundary
 
-The application is local, single-user, and JSON-backed. Roadmap Phase 1 does
-not implement Django, an HTTP API, PostgreSQL, authentication, authorization,
-multi-user ownership, background jobs, or AI/ML. The future handoff is mapped
-in [DJANGO_MIGRATION_READINESS.md](DJANGO_MIGRATION_READINESS.md).
+The application described in this file is local, single-user, and JSON-backed.
+The Phase 1 CLI release did not implement Django, an HTTP API, PostgreSQL,
+authentication, authorization, multi-user ownership, background jobs, or
+AI/ML. Those capabilities were subsequently developed outside this CLI branch.
+The original design handoff is preserved in
+[DJANGO_MIGRATION_READINESS.md](DJANGO_MIGRATION_READINESS.md).
