@@ -1,4 +1,10 @@
-# Current build summary
+# Phase 1 CLI build summary
+
+This file summarizes the completed Python CLI implementation on `main`. It is
+not a summary of the complete TallyDan web application. For the current
+full-stack project, see the [repository overview](../README.md),
+[Django backend](https://github.com/danielabdouroihamane9-gif/TallyDan/tree/django-backend),
+and [frontend](https://github.com/danielabdouroihamane9-gif/TallyDan/tree/frontend).
 
 ## Implemented
 
@@ -33,9 +39,10 @@ The authoritative state is
 - authentication, authorization, or multiple users
 - AI/ML features
 
-Those capabilities belong to later roadmap phases. The migration-readiness
-document records preparation without expanding the current implementation
-scope.
+Those capabilities were outside the scope of the Phase 1 CLI release. They
+were subsequently implemented as a separate Django backend and React frontend
+in the branches linked above. The migration-readiness document records the
+original planning context rather than the current implementation status.
 
 Release evidence and known limitations are recorded in
 [PHASE_1_RELEASE_REPORT.md](PHASE_1_RELEASE_REPORT.md). The completed gate is
