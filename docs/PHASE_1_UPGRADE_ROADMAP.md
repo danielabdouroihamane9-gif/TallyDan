@@ -1,4 +1,9 @@
-# Phase 1 Upgrade Roadmap
+# Phase 1 Upgrade Roadmap — CLI stabilization
+
+This roadmap governs the stabilization and `v1.0.0` release of the original
+Python CLI on `main`. It is a historical milestone record, not the roadmap for
+the entire TallyDan full-stack product. The later Django backend and React
+frontend are maintained in the `django-backend` and `frontend` branches.
 
 This is the authoritative milestone map for stabilizing the Core Python
 Expense Tracker before beginning Roadmap Phase 2. Milestone numbers in this
@@ -143,6 +148,10 @@ Completed capabilities:
 
 ## Boundary
 
-These milestones do not implement HTTP APIs, Django, Django REST Framework,
-PostgreSQL, authentication, multi-user accounts, or AI/ML. Those belong to
-later roadmap phases after this upgrade roadmap is complete.
+At the time this Phase 1 CLI roadmap was completed, these milestones did not
+implement HTTP APIs, Django, Django REST Framework, PostgreSQL, authentication,
+multi-user accounts, or AI/ML. Those were outside the scope of the CLI release.
+The later TallyDan implementation is maintained separately in the
+[`django-backend`](https://github.com/danielabdouroihamane9-gif/TallyDan/tree/django-backend)
+and [`frontend`](https://github.com/danielabdouroihamane9-gif/TallyDan/tree/frontend)
+branches. This boundary remains accurate for the Phase 1 code itself.
